@@ -1,0 +1,5 @@
+{
+    "storage_path": "storage",
+    "http_port": 8080,
+    "use_static": "./static"
+}
