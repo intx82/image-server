@@ -10,7 +10,10 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: true
     - name: Build the Docker image
       run: docker build . --tag image-server:master
     - name: Stop old Container
@@ -21,4 +24,4 @@ jobs:
           docker rm image-server || true
     - name: Run new container
       run: |
-          docker run -dit --name image-server --network js-store-net image-server:master
+          docker run -dit --name image-server --network js-store-net -v /var/www/js.x.ks.ua/img/:/storage image-server:master
