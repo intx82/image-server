@@ -2,25 +2,35 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
-#include <sys/utsname.h>
+#include <filesystem>
+#include <fstream>
 #include <spdlog/spdlog.h>
+
 
 #include "httplib.h"
 #include "endpoints.h"
 #include "config.h"
 
 
+void ensure_upload_dir() {
+    if (!std::filesystem::exists(config_t::get_config()->storage_path())) {
+        std::filesystem::create_directories(config_t::get_config()->storage_path());
+        spdlog::warn("Created storage directory: {}", config_t::get_config()->storage_path());
+    }
+}
+
 void __start_func__()
 {
     spdlog::info("Starting. http://localhost:{}/", config_t::get_config()->http_port());
-
-    struct utsname _hostname;
-    uname(&_hostname);
+    ensure_upload_dir();
 
     httplib::Server srv;
     endpoints_t api(srv);
 
     if (!config_t::get_config()->use_static().empty()) {
+        spdlog::info("Using {} as /img", config_t::get_config()->storage_path());
+        spdlog::info("Using {} as /", config_t::get_config()->use_static());
+
         srv.set_mount_point("/img", config_t::get_config()->storage_path());
         srv.set_mount_point("/", config_t::get_config()->use_static());
     }

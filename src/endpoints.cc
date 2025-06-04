@@ -56,7 +56,7 @@ void endpoints_t::on_upload(const httplib::Request &req, httplib::Response &res)
     Json::Value file_list(Json::arrayValue);
 
     if (!req.has_file("file")) {
-        result["status"] = "error";
+        result["status"] = 1;
         result["message"] = "No file uploaded";
         res.status = 400;
     } else {
@@ -102,7 +102,7 @@ void endpoints_t::on_upload(const httplib::Request &req, httplib::Response &res)
             }
         }
 
-        result["status"] = "ok";
+        result["status"] = 0;
         result["files"] = file_list;
     }
 

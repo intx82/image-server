@@ -96,7 +96,7 @@
             if (xhr.status === 200) {
               try {
                 const resp = JSON.parse(xhr.responseText);
-                if (resp.status === 'ok' && resp.files && resp.files.length > 0) {
+                if (resp.status === 0 && resp.files && resp.files.length > 0) {
                   const fileInfo = resp.files[0];
                   document.getElementById(`status-${i}`).textContent = `Uploaded ✓ (SHA256: ${fileInfo.sha256})`;
                   results.push(fileInfo);
@@ -121,7 +121,7 @@
         });
       }
 
-      finalResponse.textContent = JSON.stringify({ status: 'ok', files: results }, null, 2);
+      finalResponse.textContent = JSON.stringify({ status: 0, files: results }, null, 2);
     });
   </script>
 </body>
