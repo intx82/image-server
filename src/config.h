@@ -35,6 +35,10 @@ class config_t
             return _use_static;
         }
 
+        const std::string& auth_url() const {
+            return _auth_url;
+        }
+        
         /**
          * @brief Fetches data from config file
         */
@@ -44,6 +48,7 @@ class config_t
         std::string _storage_path;
         uint16_t    _http_port;
         std::string _use_static;
+        std::string _auth_url;
 
         static config_t _cfg;
 

@@ -6,6 +6,6 @@ gtest_dep = dependency('gtest', required: true)
 magic_dep = dependency('libmagic', required: true)
 jsoncpp_dep = dependency('jsoncpp', required: true)
 
-executable('image_server', ['main.cc', 'config.cc', 'sha256.cc', 'base64.cc', 'endpoints.cc'],
+executable('image_server', ['main.cc', 'config.cc', 'sha256.cc', 'base64.cc', 'endpoints.cc', 'check_login.cc'],
   dependencies: [spdlog_dep, jsoncpp_dep, magic_dep]
 )

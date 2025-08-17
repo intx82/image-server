@@ -17,6 +17,7 @@ void config_t::refresh()
         _storage_path = "storage";
         _http_port = 8080;
         _use_static = "./static";
+        _auth_url = "http://localhost:3000/api/checkLogin";
     }
     else
     {
@@ -24,7 +25,8 @@ void config_t::refresh()
         f >> cfg;
         _storage_path = cfg.isMember("storage_path") ? cfg["storage_path"].asString() : "storage";
         _http_port = cfg.isMember("http_port") ? cfg["http_port"].asInt() : 8080;
-        _use_static = cfg.isMember("use_static") ? cfg["use_static"].asString() : "";
+        _use_static = cfg.isMember("use_static") ? cfg["use_static"].asString() : "./static";
+        _auth_url = cfg.isMember("auth_url") ? cfg["auth_url"].asString() : "http://localhost:3000/api/checkLogin";
     }
 }
 

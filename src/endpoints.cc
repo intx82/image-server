@@ -4,9 +4,11 @@
 #include <json/json.h>
 
 #include <fstream>
+#include <spdlog/spdlog.h>
 
 #include "base64.h"
 #include "sha256.h"
+#include "check_login.h"
 
 std::string endpoints_t::detect_mime_type(const char *data, size_t size)
 {
@@ -54,8 +56,14 @@ void endpoints_t::on_upload(const httplib::Request &req, httplib::Response &res)
 {
     Json::Value result;
     Json::Value file_list(Json::arrayValue);
+    std::string cookie = req.get_header_value("Cookie");
+    spdlog::info("Request on-upload with cookie: {}", cookie);
 
-    if (!req.has_file("file")) {
+    if (!check_login(cookie)) {
+        result["status"] = 1;
+        result["message"] = "Not authorized";
+        res.status = 401;
+    } else if (!req.has_file("file")) {
         result["status"] = 1;
         result["message"] = "No file uploaded";
         res.status = 400;

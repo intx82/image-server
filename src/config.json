@@ -1,5 +1,6 @@
 {
     "storage_path": "/storage",
     "http_port": 8080,
-    "use_static": ""
+    "use_static": "",
+    "auth_url": "http://js-backend:3000/api/checkLogin"
 }
