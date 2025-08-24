@@ -3,6 +3,7 @@
 
 #include <string>
 #include <array>
+#include <cstdint>
 
 /**
  * @brief sha256_t

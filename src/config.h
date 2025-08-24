@@ -2,6 +2,8 @@
 #define __CONFIG_HPP__
 
 #include <string>
+#include <cstdint>
+
 
 /**
  * @brief Configuration singletone
